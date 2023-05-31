@@ -1,4 +1,4 @@
-const TradeRequest = require('./tradReqModel');
+const TradeRequest = require('../models/tradReq');
 
 exports.saveTradeRequest = (req, res, next) => {
   const tradeRequestData = req.body;
