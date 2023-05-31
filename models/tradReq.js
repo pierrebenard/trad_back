@@ -1,7 +1,8 @@
 const mongoose = require('mongoose');
 
 const tradReqSchema = mongoose.Schema({
-    positionNumber: { type: Number, required: true },
+    ticketNumber: { type: Number, required: true },
+    magicNumber: { type: Number, required: true },
     dateAndTimeOpening:  { type: Number, required: true },
     typeOfTransaction: { type: String, required: true },
     volume: { type: Number, required: true },
@@ -13,6 +14,8 @@ const tradReqSchema = mongoose.Schema({
     priceClosure: { type: Number, required: true },
     swap: { type: Number, required: true },
     profit: { type: Number, required: true },
+    commision: { type: Number, required: true },
+    closurePosition: { type: String, required: true },
 });
 
 module.exports = mongoose.model('Things', tradReqSchema);
