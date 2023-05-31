@@ -4,7 +4,6 @@ const bodyParser = require('body-parser');
 const path = require('path');
 const cors = require('cors'); // Importez le module cors
 
-const stuffRoutes = require('./routes/stuff');
 const userRoutes = require('./routes/user');
 const tradReqRoutes = require('./routes/tradReq');
 
@@ -30,9 +29,7 @@ app.use((req, res, next) => {
     next();
 });
 
-app.use('/api/stuff', stuffRoutes);
 app.use('/api/auth', userRoutes);
 app.use('/api/tradReq', tradReqRoutes);
-app.use('/images', express.static(path.join(__dirname, 'images')));
 
 module.exports = app;
