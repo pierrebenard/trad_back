@@ -2,7 +2,7 @@ const { exec } = require('child_process');
 
 exports.searchData = async (req, res, next) => {
   const { date } = req.query;
-
+  console.log("recuperation argument requete");
   try {
     const pythonFilePath = '../pyton/test.py';
 
@@ -20,7 +20,7 @@ exports.searchData = async (req, res, next) => {
         res.status(500).json({ error: 'Erreur lors de l\'exécution du fichier Python' });
         return;
       }
-
+      console.log("pas d'erreur python");
       // La sortie standard contient le résultat de l'exécution du fichier Python
       const results = stdout.trim(); // Assurez-vous de supprimer les espaces blancs indésirables
 
