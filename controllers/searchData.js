@@ -1,31 +1,37 @@
-const { exec } = require('child_process');
+const { spawn } = require('child_process');
 
 exports.searchData = async (req, res, next) => {
   const { date } = req.query;
   console.log("recuperation argument requete");
   try {
-    const pythonFilePath = '../pyton/test.py';
+    const pythonFilePath = './pyton/test.py';
 
-    // Construire la commande pour exécuter le fichier Python avec la date passée en tant qu'argument
-    const command = `python ${pythonFilePath} --date=${date}`;
+    // Créer le processus Python avec la date passée en tant qu'argument
+    const pythonProcess = spawn('python', [pythonFilePath, '--date', date]);
 
-    exec(command, (error, stdout, stderr) => {
-      if (error) {
-        console.error(`Une erreur s'est produite : ${error.message}`);
+    let results = '';
+
+    // Collecter les données renvoyées par le script Python
+    pythonProcess.stdout.on('data', (data) => {
+      results += data.toString();
+    });
+
+    // Gérer les erreurs éventuelles
+    pythonProcess.stderr.on('data', (data) => {
+      console.error(`Erreur de sortie : ${data}`);
+      res.status(500).json({ error: 'Erreur lors de l\'exécution du fichier Python' });
+      return;
+    });
+
+    // Une fois le processus terminé, envoyer les résultats au front-end
+    pythonProcess.on('close', (code) => {
+      if (code !== 0) {
+        console.error(`Une erreur s'est produite : ${code}`);
         res.status(500).json({ error: 'Erreur lors de l\'exécution du fichier Python' });
-        return;
+      } else {
+        console.log("pas d'erreur python");
+        res.status(200).json({ results });
       }
-      if (stderr) {
-        console.error(`Erreur de sortie : ${stderr}`);
-        res.status(500).json({ error: 'Erreur lors de l\'exécution du fichier Python' });
-        return;
-      }
-      console.log("pas d'erreur python");
-      // La sortie standard contient le résultat de l'exécution du fichier Python
-      const results = stdout.trim(); // Assurez-vous de supprimer les espaces blancs indésirables
-
-      // Envoyer les résultats à votre front-end si nécessaire
-      res.status(200).json({ results });
     });
   } catch (error) {
     console.log('Erreur lors de la recherche dans la base de données :', error);
