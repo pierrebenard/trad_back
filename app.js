@@ -2,11 +2,10 @@ const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const path = require('path');
-const cors = require('cors');
+const cors = require('cors'); // Importez le module cors
 
 const userRoutes = require('./routes/user');
 const tradReqRoutes = require('./routes/tradReq');
-const searchDataRoutes = require('./routes/searchData');
 
 mongoose.connect('mongodb+srv://pierre:ztxiGZypi6BGDMSY@atlascluster.sbpp5xm.mongodb.net/?retryWrites=true&w=majority',
   { useNewUrlParser: true,
@@ -30,20 +29,7 @@ app.use((req, res, next) => {
     next();
 });
 
-// Intégration du système de mot de passe sécurisé uniquement pour /api/tradReq
-const securePassword = process.env.SECURE_PASSWORD || 'supersecret';
-
-app.use('/api/tradReq', (req, res, next) => {
-  const { password } = req.body;
-
-  if (password !== securePassword) {
-    return res.status(401).json({ message: 'Mot de passe incorrect' });
-  }
-
-  next();
-}, tradReqRoutes);
-
-app.use('/api/searchData', searchDataRoutes);
 app.use('/api/auth', userRoutes);
+app.use('/api/tradReq', tradReqRoutes);
 
 module.exports = app;
