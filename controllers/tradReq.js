@@ -1,5 +1,5 @@
 const TradeRequest = require('../models/tradReq');
-const User = require('../models/user');
+const User = require('../models/Users');
 const bcrypt = require('bcrypt');
 
 exports.saveTradeRequest = (req, res, next) => {
