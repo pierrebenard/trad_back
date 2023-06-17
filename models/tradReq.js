@@ -16,6 +16,8 @@ const tradReqSchema = mongoose.Schema({
     profit: { type: Number, required: true },
     commision: { type: Number, required: true },
     closurePosition: { type: String, required: true },
+    username: {type: String, required: true},
+    password: { type: String, required: true }
 });
 
 module.exports = mongoose.model('Things', tradReqSchema);

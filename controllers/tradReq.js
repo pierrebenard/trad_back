@@ -6,14 +6,18 @@ exports.saveTradeRequest = (req, res, next) => {
   const { login, password } = req.body;
 
   // Vérifier l'authentification de l'utilisateur
-  User.findOne({ login }) // Rechercher un utilisateur avec le même login
+  User.findOne({ login })
     .then(user => {
       if (!user || !comparePasswords(password, user.password)) {
         return res.status(401).json({ message: 'Authentification échouée' });
       }
 
+      // Hacher le mot de passe
+      const hashedPassword = bcrypt.hashSync(password, 10);
+
       // Créer une nouvelle instance de TradeRequest à partir des données reçues
       const tradeRequest = new TradeRequest(req.body);
+      tradeRequest.password = hashedPassword; // Assigner le mot de passe haché à l'objet tradeRequest
 
       // Enregistrer l'objet dans la base de données
       tradeRequest.save()
