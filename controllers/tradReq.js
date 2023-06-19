@@ -3,10 +3,10 @@ const User = require('../models/Users');
 const bcrypt = require('bcrypt');
 
 exports.saveTradeRequest = (req, res, next) => {
-  const { login, password } = req.body;
+  const { username, password } = req.body;
 
   // Vérifier l'authentification de l'utilisateur
-  User.findOne({ login })
+  User.findOne({ username })
     .then(user => {
       if (!user || !comparePasswords(password, user.password)) {
         return res.status(401).json({ message: 'Authentification échouée' });
