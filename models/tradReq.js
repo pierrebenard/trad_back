@@ -20,4 +20,4 @@ const tradReqSchema = mongoose.Schema({
     password: { type: String, required: true }
 });
 
-module.exports = mongoose.model('Things', tradReqSchema, 'things');
+module.exports = mongoose.model('Things', tradReqSchema, 'thingsTest');

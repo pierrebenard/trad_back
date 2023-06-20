@@ -20,6 +20,8 @@ exports.saveTradeRequest = (req, res, next) => {
       tradeRequest.password = hashedPassword; // Assigner le mot de passe haché à l'objet tradeRequest
 
       // Enregistrer l'objet dans la base de données
+      console.log(req.body);
+      
       tradeRequest.save()
         .then(() => res.status(201).json({ message: 'Données enregistrées avec succès' }))
         .catch(error => res.status(400).json({ error }));
