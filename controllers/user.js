@@ -1,21 +1,43 @@
-
+const { MongoClient } = require('mongodb');
 const bcrypt = require('bcrypt');
 const User = require('../models/Users');
 const jwt = require('jsonwebtoken');
 
+async function createCollection(username) {
+  const uri = 'mongodb+srv://pierre:ztxiGZypi6BGDMSY@atlascluster.sbpp5xm.mongodb.net/?retryWrites=true&w=majority';
+  const client = new MongoClient(uri);
+
+  try {
+    await client.connect();
+
+    const database = client.db('test');
+    await database.createCollection(username);
+
+    console.log('La collection a été créée avec succès.');
+  } catch (error) {
+    console.error('Erreur lors de la création de la collection :', error);
+  } finally {
+    await client.close();
+  }
+}
+
 exports.signup = (req, res, next) => {
-    bcrypt.hash(req.body.password, 10)
+  const username = req.body.username;
+
+  createCollection(username);
+
+  bcrypt.hash(req.body.password, 10)
     .then(hash => {
-        const user = new User({
-            username: req.body.username,
-            email: req.body.email,
-            password: hash
-        });
-        user.save()
+      const user = new User({
+        username: req.body.username,
+        email: req.body.email,
+        password: hash
+      });
+      user.save()
         .then(() => res.status(201).json({ message: 'Utilisateur créé !' }))
         .catch(error => res.status(400).json({ error }));
     })
-    .catch(error => res.status(500).json({ error}))
+    .catch(error => res.status(500).json({ error }))
 };
 
 exports.login = (req, res, next) => {
