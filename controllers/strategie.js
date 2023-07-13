@@ -46,7 +46,7 @@ exports.suppressionStrategie = (req, res) => {
       });
 };
 
-exports.recuperationStrategies = (req, res) => {
+exports.recuperationStrategie = (req, res) => {
     const username = req.params.username;
   
     const Strategie = mongoose.model(username, StrategieSchema);
