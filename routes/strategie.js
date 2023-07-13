@@ -4,6 +4,6 @@ const strategieCtrl = require('../controllers/strategie');
 
 router.post('/createStrategie', strategieCtrl.createStrategie);
 router.post('/suppressionStrategie', strategieCtrl.suppressionStrategie);
-router.post('/recuperationStrategie', strategieCtrl.recuperationStrategie);
+router.get('/recuperationStrategie', strategieCtrl.recuperationStrategie);
 
 module.exports = router;
