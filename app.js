@@ -32,6 +32,6 @@ app.use((req, res, next) => {
 
 app.use('/api/auth', userRoutes);
 app.use('/api/tradReq', tradReqRoutes);
-app.use('/api/tradReq', strategieReqRoutes);
+app.use('/api/strategie', strategieReqRoutes);
 
 module.exports = app;
