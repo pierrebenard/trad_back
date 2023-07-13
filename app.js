@@ -6,6 +6,7 @@ const cors = require('cors'); // Importez le module cors
 
 const userRoutes = require('./routes/user');
 const tradReqRoutes = require('./routes/tradReq');
+const strategieReqRoutes = require('./routes/strategie');
 
 mongoose.connect('mongodb+srv://pierre:ztxiGZypi6BGDMSY@atlascluster.sbpp5xm.mongodb.net/?retryWrites=true&w=majority',
   { useNewUrlParser: true,
@@ -31,5 +32,6 @@ app.use((req, res, next) => {
 
 app.use('/api/auth', userRoutes);
 app.use('/api/tradReq', tradReqRoutes);
+app.use('/api/tradReq', strategieReqRoutes);
 
 module.exports = app;
