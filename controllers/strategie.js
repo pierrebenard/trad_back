@@ -5,7 +5,7 @@ exports.createStrategie = (req, res) => {
     const username = req.body.username;
     const nomStrategie = req.body.nomStrategie;
   
-    const Strategie = mongoose.model(username, StrategieSchema);
+    const Strategie = mongoose.model("Strategie", StrategieSchema);
   
     Strategie.findOne({ nomStrategie: nomStrategie })
       .then((existingStrategie) => {
@@ -35,7 +35,7 @@ exports.suppressionStrategie = (req, res) => {
     const username = req.body.username;
     const nomStrategie = req.body.nomStrategie;
   
-    const Strategie = mongoose.model(username, StrategieSchema);
+    const Strategie = mongoose.model("Strategie", StrategieSchema);
   
     Strategie.deleteMany({ nomStrategie: nomStrategie })
       .then(() => {
@@ -49,7 +49,7 @@ exports.suppressionStrategie = (req, res) => {
 exports.recuperationStrategie = (req, res) => {
     const username = req.params.username;
   
-    const Strategie = mongoose.model(username, StrategieSchema);
+    const Strategie = mongoose.model("Strategie", StrategieSchema);
   
     Strategie.find()
       .then((data) => {
