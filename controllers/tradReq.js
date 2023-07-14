@@ -2,7 +2,7 @@ const TradeRequest = require('../models/tradReq');
 const User = require('../models/Users');
 const bcrypt = require('bcrypt');
 
-
+/*
 exports.saveTradeRequest = (req, res, next) => {
       const tradeRequest = new TradeRequest(req.body);
       tradeRequest.save()
@@ -11,8 +11,8 @@ exports.saveTradeRequest = (req, res, next) => {
     })
     .catch(error => res.status(500).json({ error }));
 };
+*/
 
-/*
 exports.saveTradeRequest = (req, res, next) => {
   const { username, password } = req.body;
 
@@ -43,4 +43,4 @@ exports.saveTradeRequest = (req, res, next) => {
 function comparePasswords(password, hashedPassword) {
   return bcrypt.compareSync(password, hashedPassword);
 }
-*/
+
